@@ -2,3 +2,25 @@ extends layout
 
 block content
     h1=title
+    p These are the available endpoints for this API.
+    table
+        thead
+            tr
+                th Endpoint
+                th Description
+                th Method
+                th Request Example
+                th Response Example
+        tbody
+            for endpoint in endpoints
+                tr
+                    td
+                        a(href=endpoint.path)= endpoint.path
+                    td= endpoint.description
+                    td= endpoint.method
+                    td
+                        pre
+                            code= endpoint.example_request
+                    td
+                        pre
+                            code= endpoint.example_response
