@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     endpoints: [
       {
         method: 'GET',
-        path: '/api/posts',
+        path: '/posts',
         description: 'Get all posts',
         example_request: '{}',
         example_response: `{
@@ -27,28 +27,28 @@ router.get('/', function(req, res, next) {
       },
       {
         method: 'GET',
-        path: '/api/posts/:id',
+        path: '/posts/:id',
         description: 'Get a post by id',
         example_request: '{}',
         example_response: `{ //same as above }`
       },
       {
         method: 'POST',
-        path: '/api/posts',
+        path: '/posts',
         description: 'Create a new post',
         example_request: '{ "content": "Post content", "user_name": "User Name" }',
         example_response: '{ success: true, data: { ... } }'
       },
       {
         method: 'PUT',
-        path: '/api/posts/:id',
+        path: '/posts/:id',
         description: 'Update a post by id',
         example_request: '{ "content": "Post content", "user_name": "User Name" }',
         example_response: '{ success: true, data: { ... } }'
       },
       {
         method: 'DELETE',
-        path: '/api/posts/:id',
+        path: '/posts/:id',
         description: 'Delete a post by id',
         example_response: '{ success: true }'
       }
