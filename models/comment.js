@@ -5,7 +5,8 @@ const commentSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
     likes: { type: Number, default: 0 },
-    liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    createdAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
 commentSchema.virtual('user_name').get(function () {
