@@ -7,7 +7,11 @@ const { validationResult, body } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
 exports.index = asyncHandler(async (req, res, next) => {
-    const posts = await Post.find().populate('user').sort({ createdAt: 'desc' });
+    const posts = await Post.find()
+        .populate('user', 'username name profile_pic')
+        .populate('comments', 'content user likes createdAt liked_by')
+        .populate('liked_by', 'username name profile_pic')
+        .sort({ createdAt: 'desc' });
     res.json(posts);
 });
 
