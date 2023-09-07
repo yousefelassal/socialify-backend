@@ -8,10 +8,6 @@ const postSchema = new mongoose.Schema({
     liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 }, { timestamps: true });
 
-postSchema.virtual('user_name').get(function () {
-    return this.user.name;
-});
-
 postSchema.virtual('url').get(function () {
     return `/${this.id}`;
 });

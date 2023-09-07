@@ -9,10 +9,6 @@ const commentSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-commentSchema.virtual('user_name').get(function () {
-    return this.user.name;
-})
-
 commentSchema.set('toJSON', {
     virtuals: true,
     transform: (doc, ret) => {
