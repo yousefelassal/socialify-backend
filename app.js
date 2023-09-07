@@ -18,6 +18,9 @@ mongoose.connect(config.MONGODB_URI).then(() => {
     console.log('error connecting to MongoDB:', error.message);
 });
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
