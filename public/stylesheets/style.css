@@ -1,8 +1,28 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 }
-
-a {
-  color: #00B7FF;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  margin-top: auto;
+}
+th {
+  background-color: #f2f2f2;
+}
+pre code {
+  display: block;
+  background: none;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 500px;
+  min-width: 100px;
+  padding: 12px;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  border-radius: 12px;
 }
