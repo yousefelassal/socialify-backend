@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken');
 const { validationResult, body } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
+const getTokenFrom = req => {
+    const authorization = req.get('authorization');
+    if (authorization && authorization.startsWith('Bearer ')) {
+        return authorization.replace('Bearer ', '');
+    }
+    return null;
+}
+
 exports.index = asyncHandler(async (req, res, next) => {
     const posts = await Post.find()
         .populate('user', 'username name profile_pic')
