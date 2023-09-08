@@ -6,10 +6,10 @@ const auth = require('../middleware/auth');
 
 router.get('/', postController.index);
 
-router.post('/', auth, postController.create);
+router.post('/', postController.create);
 
-router.put('/:id', auth, postController.update);
+router.put('/:id', postController.update);
 
-router.delete('/:id', auth, postController.delete);
+router.delete('/:id', postController.delete);
 
 module.exports = router;
