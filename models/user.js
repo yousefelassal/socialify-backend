@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     liked_comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    profile_pic: { type: String, default: 'https://res.cloudinary.com/dx6tl6aa2/image/upload/v1595347704/default_profile_pic.png' },
+    profile_pic: { type: String, default: 'https://raw.githubusercontent.com/vercel/next-learn/master/basics/basics-final/public/images/profile.jpg' },
     bio: { type: String, default: '' },
     dob: { type: Date, default: Date.now }
 }, { timestamps: true });
