@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./controllers/userController');
 const loginRouter = require('./controllers/loginController');
+const searchRouter = require('./controllers/searchController');
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
+app.use('/search', searchRouter);
 
 module.exports = app;
