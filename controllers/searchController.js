@@ -19,4 +19,7 @@ searchRouter.get('/posts', async (req, res) => {
     res.json(posts);
 });
 
+//TODO: implement search by tags
+//TODO: implement search history
+
 module.exports = searchRouter;
