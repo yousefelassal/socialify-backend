@@ -20,8 +20,33 @@ userRouter.post('/', async (req, res) => {
 });
 
 userRouter.get('/', async (req, res) => {
-    const users = await User.find({}).populate('posts', { content: 1, date: 1 });
+    const users = await User.find({})
     res.json(users);
+});
+
+userRouter.get('/:id', async (req, res) => {
+    const user = await User.findById(req.params.id).populate('comments following followers liked_posts liked_comments')
+        .populate({
+            path: 'posts',
+            populate: {
+                path: 'comments',
+                populate: {
+                    path: 'post',
+                    populate: {
+                        path: 'user',
+                    }
+                }
+            }
+        })
+        .populate({
+            path: 'posts',
+            populate: {
+                path: 'liked_by',
+                select: 'username name profile_pic'
+            }
+        })
+        //TODO: populate the rest of the fields
+    res.json(user);
 });
 
 module.exports = userRouter;
