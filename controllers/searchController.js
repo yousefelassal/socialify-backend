@@ -21,5 +21,6 @@ searchRouter.get('/posts', async (req, res) => {
 
 //TODO: implement search by tags
 //TODO: implement search history
+//TODO: implement delete search history
 
 module.exports = searchRouter;
