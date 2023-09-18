@@ -60,7 +60,7 @@ exports.unlike = asyncHandler(async (req, res, next) => {
     res.status(201).json(post);
 });
 
-exports.commentLike = asyncHandler(async (req, res, next) => {
+exports.likeComment = asyncHandler(async (req, res, next) => {
     const token = getTokenFrom(req);
     const decodedToken = jwt.verify(token, process.env.SECRET);
     if (!token || !decodedToken.id) {
@@ -84,7 +84,7 @@ exports.commentLike = asyncHandler(async (req, res, next) => {
     res.status(201).json(comment);
 });
 
-exports.commentUnlike = asyncHandler(async (req, res, next) => {
+exports.unlikeComment = asyncHandler(async (req, res, next) => {
     const token = getTokenFrom(req);
     const decodedToken = jwt.verify(token, process.env.SECRET);
     if (!token || !decodedToken.id) {
