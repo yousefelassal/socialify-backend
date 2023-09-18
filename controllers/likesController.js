@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
@@ -67,7 +68,7 @@ exports.likeComment = asyncHandler(async (req, res, next) => {
         return res.status(401).json({ error: 'token missing or invalid' });
     }
 
-    const comment = await Comment.findById(req.params.id);
+    const comment = await Comment.findById(req.params.commentId);
     const user = await User.findById(decodedToken.id);
 
     if (comment.liked_by.includes(user._id)) {
@@ -91,7 +92,7 @@ exports.unlikeComment = asyncHandler(async (req, res, next) => {
         return res.status(401).json({ error: 'token missing or invalid' });
     }
 
-    const comment = await Comment.findById(req.params.id);
+    const comment = await Comment.findById(req.params.commentId);
     const user = await User.findById(decodedToken.id);
 
     if (!comment.liked_by.includes(user._id)) {
