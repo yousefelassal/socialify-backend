@@ -14,6 +14,10 @@ router.put('/:id', postController.update);
 
 router.post('/:id/comment', commentController.create);
 
+router.post('/:id/comment/:commentId/like', likesController.likeComment);
+
+router.post('/:id/comment/:commentId/unlike', likesController.unlikeComment);
+
 router.put('/:id/comment/:commentId', commentController.update);
 
 router.delete('/:id/comment/:commentId', commentController.delete);
