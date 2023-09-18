@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
@@ -22,70 +23,48 @@ exports.create = asyncHandler(async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     const user = await User.findById(decodedToken.id);
 
-    if (!post) {
-        return res.status(400).json({ error: 'post not found' });
-    }
-
-    const comment = {
+    const comment = new Comment({
         content: req.body.content,
         user: user._id,
         post: post._id
-    }
+    });
 
-    const savedComment = await new Comment(comment).save();
+    const savedComment = await comment.save();
     post.comments = post.comments.concat(savedComment._id);
     user.comments = user.comments.concat(savedComment._id);
-
     await post.save();
     await user.save();
-
     res.status(201).json(savedComment);
 });
 
 exports.update = asyncHandler(async (req, res, next) => {
-    const token = getTokenFrom(req);
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!token || !decodedToken.id) {
-        return res.status(401).json({ error: 'token missing or invalid' });
-    }
-
     const comment = await Comment.findById(req.params.commentId);
-    const user = await User.findById(decodedToken.id);
-
-    if (!comment) {
-        return res.status(400).json({ error: 'comment not found' });
-    }
-
-    if (comment.user.toString() !== user._id.toString()) {
-        return res.status(401).json({ error: 'user not authorized' });
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET);
+    if (!decodedToken.id || comment.user.toString() !== decodedToken.id.toString()) {
+        return res.status(401).json({ error: 'token missing or invalid' });
     }
 
     comment.content = req.body.content;
-
-    await comment.save();
-
-    res.status(201).json(comment);
+    const savedComment = await comment.save();
+    res.status(201).json(savedComment);
 });
 
 exports.delete = asyncHandler(async (req, res, next) => {
-    const token = getTokenFrom(req);
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!token || !decodedToken.id) {
+    const comment = await Comment.findById(req.params.commentId);
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET);
+    if (!decodedToken.id || comment.user.toString() !== decodedToken.id.toString()) {
         return res.status(401).json({ error: 'token missing or invalid' });
     }
 
-    const comment = await Comment.findById(req.params.commentId);
+    const post = await Post.findById(req.params.id);
     const user = await User.findById(decodedToken.id);
 
-    if (!comment) {
-        return res.status(400).json({ error: 'comment not found' });
-    }
+    post.comments = post.comments.filter(c => c._id.toString() !== comment._id.toString());
+    user.comments = user.comments.filter(c => c._id.toString() !== comment._id.toString());
 
-    if (comment.user.toString() !== user._id.toString()) {
-        return res.status(401).json({ error: 'user not authorized' });
-    }
-
-    await Comment.findByIdAndRemove(req.params.commentId);
+    await post.save();
+    await user.save();
+    await comment.remove();
 
     res.status(204).end();
 });
