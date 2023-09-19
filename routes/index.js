@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+//TODO: add sample ids to paths
+
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'API Endpoints',
