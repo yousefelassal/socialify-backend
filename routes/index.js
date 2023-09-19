@@ -51,6 +51,50 @@ router.get('/', function(req, res, next) {
         path: '/posts/:id',
         description: 'Delete a post by id',
         example_response: '{ success: true }'
+      },
+      {
+        method: 'POST',
+        path: '/posts/:id/like',
+        description: 'Like a post by id',
+        example_response: '{ success: true }'
+      },
+      {
+        method: 'POST',
+        path: '/posts/:id/unlike',
+        description: 'Unlike a post by id',
+        example_response: '{ success: true }'
+      },
+      {
+        method: 'POST',
+        path: '/posts/:id/comment',
+        description: 'Create a new comment on a post',
+        example_request: '{ "content": "Comment content", "user_name": "User Name" }',
+        example_response: '{ success: true, data: { ... } }'
+      },
+      {
+        method: 'PUT',
+        path: '/posts/:id/comment/:commentId',
+        description: 'Update a comment on a post',
+        example_request: '{ "content": "Comment content", "user_name": "User Name" }',
+        example_response: '{ success: true, data: { ... } }'
+      },
+      {
+        method: 'DELETE',
+        path: '/posts/:id/comment/:commentId',
+        description: 'Delete a comment on a post',
+        example_response: '{ success: true }'
+      },
+      {
+        method: 'POST',
+        path: '/posts/:id/comment/:commentId/like',
+        description: 'Like a comment on a post',
+        example_response: '{ success: true }'
+      },
+      {
+        method: 'POST',
+        path: '/posts/:id/comment/:commentId/unlike',
+        description: 'Unlike a comment on a post',
+        example_response: '{ success: true }'
       }
     ]
   });
