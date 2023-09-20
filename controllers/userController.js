@@ -66,6 +66,7 @@ userRouter.get('/:id', async (req, res) => {
                 path: 'user',
             }
         })
+        // TODO: populate following and followers, ...
     res.json(user);
 });
 
