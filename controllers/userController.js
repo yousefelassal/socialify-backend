@@ -45,7 +45,27 @@ userRouter.get('/:id', async (req, res) => {
                 select: 'username name profile_pic'
             }
         })
-        //TODO: populate the rest of the fields
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'post',
+                populate: {
+                    path: 'user',
+                }
+            }
+        })
+        .populate({
+            path: 'liked_posts',
+            populate: {
+                path: 'user',
+            }
+        })
+        .populate({
+            path: 'liked_comments',
+            populate: {
+                path: 'user',
+            }
+        })
     res.json(user);
 });
 
